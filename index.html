@@ -1,649 +1,304 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>京东商城</title>
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/index.css">
+<meta charset="utf-8"/>
+<title>姜珊，我爱你</title>
+<!-- style -->
+<link type="text/css" rel="stylesheet" href="css/theme.css">
+<script src="js/jquery-2.0.3.min.js"></script>
 </head>
-
 <body>
-	<!-- header -->
-  <div class="header">
-    <div class="container cleatfloat">
-      <div class="header_lf lf">
-       <i></i> 收藏京东
-      </div>
-      <div class="header_rf rf">
-      <li><a href="">你好，欢迎你来到京东！[登录][注册]</a></li><li>|</li>
-      <li><a href="">我的订单</a></li><li>|</li>
-      <li><a href=""><i class="header_rf_i1"></i>会员俱乐部</a></li><li>|</li>
-      <li><a href=""><i class="header_rf_i2"></i>企业频道</a></li><li>|</li>
-      <li><a href="" class="header_rf_li3"><i class="header_rf_i3"></i>手机京东</a></li><li>|</li>
-      <li><a href="">客户服务</a></li><li>|</li>
-      <li><a href="">网址导航</a></li>
-      </div>
-    </div>
-  </div>
-
-	<!-- search -->
-  <div class="search container cleatfloat">
-       <div class="search_lf lf">
-         <img src="images/logo-201305.png" alt="">
-       </div>
-       <div class="search_ct lf">
-          <input type="text" placeholder="赵德远" class="search_text">
-          <input type="button" value="搜 索" class="search_button" >
-          <li>热门搜索：
-          <a href="">校园之星</a> 
-          <a href="">影院到家</a> 
-          <a href="">JD制暖节</a> 
-          <a href="">腕带领劵</a> 
-          <a href="">图书换购</a> 
-          <a href="">N3抢购</a> 
-          <a href="">直营减满</a></li>
-       </div>
-
-       <div class="search_rf lf">
-		   <div class="search_rf_jd lf"><i class="search_rf_jd_pic"></i>我的京东<div class="search_rf_sign"></div></div>
-		   <div class="search_rf_shopping lf"><i class="search_rf_shopping_pic1"></i>去购物车结算<i class="search_rf_shopping_pic2"></i></div>
+<div id="div_container">
+	<!-- 最外层div，用于居中兼容PC和移动 -->
+	<!-- <div id="div_start_bg"></div> -->
+	<div id="div_onlyyou">
+		<!-- 用于设置背景 -->
+		<div id="div_oy_inner">
+			<!-- 用于存放content -->
+			<div class="div_oy_text">
+				<h1></h1>
+				<img class="img_oy_text" src="">
+				<p class="p_oy_text"></p>
+				<ul id="ul_oy_benefit">
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+					<li class="li_oy_benefit"></li>
+				</ul>
+			</div>
+			<ul id="ul_oy_btn">
+				<li onclick="oy_go_next()">Yes&nbsp;&nbsp;❤</li>
+				<li onclick="oy_show_benefit()">No&nbsp;&nbsp;✖</li>
+			</ul>
+			<div id="div_oy_note" onclick="oy_hide_note()">
+				<img src="images/fly.GIF" style="width: 400px;" alt=""><!-- <br>请告诉我Yes！-->
+				<div id="div_oy_note_close">✖</div>
+			</div>
+			<div id="div_oy_yes" onclick="oy_hide_yes()">
+				<img src="images/emoji_bixin.jpg" alt=""><br>太好了！哈哈~
+				<div id="div_oy_yes_close">✖</div>
+			</div>
 		</div>
-  </div>
+	</div>
+<!-- 	<div class="div_pure_words">
+		<div class="div_pure_words_bg">
+			<div class="div_pure_words_height"></div>
+		</div>
+		<div class="div_pw_typed">
+			<span id="span_pw_typed"></span>
+		</div>
+	</div> -->
+	<div id="div_btn_container">
+		<div id="div_btn_inner">
+			<div class="div_music_tips"></div>
+			<div class="div_btn" id="div_music" onclick="music_switch()">
+				<!-- 音乐按钮部分 -->
+				<img id="img_music" src="images/music_note_big.png" style="-webkit-animation:music_play_rotate 1s linear infinite">
+				<!-- 您的浏览器不支持播放音乐 -->
+				<audio id="audio_music" autoplay="autoplay" loop><source type="audio/mpeg"/></audio>
+			</div>
+			<div class="div_record_tips"></div>
+			<div class="div_btn" id="div_record" onclick="record_switch()">
+				<audio id="audio_record" loop><source type="audio/mpeg"/></audio>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+//判断客户端设备，选择写入meta
+function init_viewport() {
+	if (navigator.userAgent.indexOf('Android') != -1) {
+		var version = parseFloat(RegExp.$1);
+		if (version > 2.3) {
+			var width = window.outerWidth == 0 ? window.screen.width : window.outerWidth;
+			var phoneScale = parseInt(width) / 500;
+			document.write('<meta name="viewport" content="width=500, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+		} else {
+			document.write('<meta name="viewport" content="width=500, target-densitydpi=device-dpi, user-scalable=0">');
+		}
+	} else if (navigator.userAgent.indexOf('iPhone') != -1) {
+		var phoneScale = parseInt(window.screen.width) / 500;
+		document.write('<meta name="viewport" content="width=500, min-height=750, initial-scale=' + phoneScale + ', maximum-scale=' + phoneScale + ', user-scalable=0" /> '); //0.75   0.82
+	} else {
+		document.write('<meta name="viewport" content="width=500, height=750, initial-scale=0.64" /> '); //0.75  0.82
+	}
+}
+init_viewport();
 
-	<!-- nav -->
-  <div class="nav container cleatfloat">
-      <div class="nav_top">
-        <li class="nav_allshop">全部商品</li>
-        <li class="nav_otherthing">首页</li>
-        <li class="nav_otherthing">服装城</li>
-        <li class="nav_otherthing">食品</li>
-        <li class="nav_otherthing">团购</li>
-        <li class="nav_otherthing">夺宝岛</li>
-        <li class="nav_otherthing">闪购</li>
-        <li class="nav_otherthing">金融</li>
-      </div>
-      
-       <div class="nav_lf  lf cleatfloat" >
-         <div>
-         	<a href="">图书</a>
-         	<a href="">音像</a>
-         	<a href="">数字产品</a>
-         	<a href="">家用电器</a>
-         </div>
-         <div>
-         	<a href="">手机</a>
-         	<a href="">数码</a>
-         	<a href="">京东通信</a>
-         	<a href="">电脑配件</a>
-          <a href="">办公用品</a>
-         </div>
-         <div>
-         	<a href="">家居</a>
-         	<a href="">家具</a>
-         	<a href="">生活用品</a>
-         	<a href="">家装饰品</a>
-         </div>
-         <div>
-         	<a href="">男装</a>
-         	<a href="">女装</a>
-         	<a href="">内衣</a>
-         	<a href="">珠宝首饰</a>
-         </div>
-         <div>
-         	<a href="">食品饮料</a>
-         	<a href="">酒类</a>
-         	<a href="">生鲜</a>
-         	<a href="">营养保健</a>
-         </div>
-         <div>
-         	<a href="">彩票</a>
-         	<a href="">旅行</a>
-         	<a href="">充值</a>
-         	<a href="">订票购票</a>
-         </div>
-       </div>
+var theme = 'pure_words';
+console.log('theme ->' + theme);
+var theme_content = {
+	"pure_words_content": "遇见你是我所有美好故事的开始，所以，请别放开我的手，也别缺席我的将来，因为一辈子和你在一起才叫将来<um style='color: #F44336;'>💕</um>",
+	"typed_bool": "typed_y",
+	"cursor_char": "cursor_heart",
+	"bg_style_pure_words": "bg_opacity",
+	"bg_img": "images/3.jpg",
+	"simple_page_content": "",
+	"video_page_content": ""
+};
+console.log(theme_content);
 
-       <div class="nav_ct lf cleatfloat">
-         <div class="nav_ct_pic1"><img src="images/banner_02.jpg" alt=""></div>
-         <div class="nav_ct_pic2">   
-           <div class="nav_ct_pic3">
-             <div class="nav_ct_pic3_lf">
-              <i class="nav_ct_i1"></i>
-              <div></div>              
-             </div>
-              <div>
-                 <div></div> 
-              </div>
-             <div class="nav_ct_pic3_rf">
-              <div></div>
-              <i class="nav_ct_i2"></i>
-             </div>
-           </div>          
-         </div>
-       </div>
+var music_json = {
+	"music_select": "m_online",
+	"m_online_id": "7",
+	"m_online_url": "images/空山新雨后.mp3",
+	"m_upload_name": "null",
+	"m_upload_url": "null"
+};
+console.log(music_json);
+var record_json = {
+	"record_bool": "r_false",
+	"r_wechat_time": "null",
+	"r_wechat_url": "null",
+	"r_wechat_amr": "null"
+};
+console.log(record_json);
 
-       <div class="nav_rf lf cleatfloat">
-          <div class="nav_rf_pic"><img src="picture/ad_focus.jpg" alt=""></div>
 
-          <div class="nav_rf_text">京东快报<a href="">更多快报 ></a></div>
-          <div class="nav_rf_text1">
-             <div class="nav_rf_text2">
-               <li><a href="">美妆年度盛典 要你好看！</a></li>
-               <li><a href="">京东值得买9.9元购了</a></li>
-               <li><a href="">自营家居低至9.9元</a></li>
-               <li><a href="">狂欢不落幕，好奇一整年</a></li>
-             </div>
-             <div class="nav_rf_text3">
-               <li><a href="">关于假冒客服诈骗的声明</a></li>
-               <li><a href="">阿根廷野生红虾4斤178元</a></li>
-               <li><a href="">大家电配送范围扩大公告</a></li>
-               <li><a href="">童书全品优惠券限时抢</a></li>
-             </div>
-          </div>
-          
-          <div class="nav_rf_lattice cleatfloat">
-            <li class="li_telebill"><i class="nav_rf_telebill"></i><div>话费</div></li>
-            <li><i class="nav_rf_air"></i><div>机票</div></li>
-            <li><i class="nav_rf_lottery"></i><div>彩票</div></li>
-            <li><i class="nav_rf_game"></i><div>游戏</div></li>
-            <li class="li_tour"><i class="nav_rf_tour"></i><div>旅游</div></li>
-            <li class="li_vmh"><i class="nav_rf_video"></i><div>电影</div></li>
-            <li class="li_vmh"><i class="nav_rf_monney"></i><div>理财</div></li>
-            <li class="li_vmh"><i class="nav_rf_home"></i><div>水电</div></li>
-          </div>
-       </div>
-  </div>
-  
-	<!-- content -->
-  <div class="content container cleatfloat">
-         <div class="content_text">生活的橱窗<span>每一天展示精彩</span></div>
-      <div class="content_pic">
-      <div class="content_pic_pic"><img src="picture/show_01.jpg" alt=""></div>
-       <div class="content_pic_text">
-       <li>品牌街</li>
-       <li>卡西欧腕表</li>
-       <li>全品低至4折</li>
-       </div>
-      <div class="content_pic_1_pic cleatfloat"><img src="picture/show_02.jpg" alt=""></div>
-<!--        <div class="content_pic_1_text">
-       <li>天天低价</li>
-       <li>康佳42英寸</li>
-       <li>直降100元</li>
-       </div> -->
-      <div class="content_pic_2_pic cleatfloat"><img src="picture/show_03.jpg" alt=""></div>
-<!--        <div class="content_pic_2_text">
-       <li>好东西</li>
-       <li>OPPO N3</li>
-       <li>白条免息送京豆</li>
-       </div> -->
-      <div class="content_pic_3_pic cleatfloat"><img src="picture/show_04.png" alt=""></div>
-<!--        <div class="content_pic_3_text">
-       <li>今日团购</li>
-       <li>56元自助餐</li>
-       <li>团购价￥45</li>
-       </div> -->
-      <div class="content_pic_4_pic cleatfloat"><img src="picture/show_05.jpg" alt=""></div>
-<!--        <div class="content_pic_4_text">
-       <li>京东首发</li>
-       <li>MR X8游戏本</li>
-       <li>8G超级显卡</li>
-       </div> -->
-      <div class="content_pic_5_pic cleatfloat"><img src="picture/show_06.jpg" alt=""></div>
-<!--        <div class="content_pic_5_text">
-       <li>优惠券</li>
-       <li>NB大牌神劵</li>
-       <li>8G超级显卡</li>
-       </div> -->
-      <div class="content_pic_6_pic cleatfloat"><img src="picture/show_07.jpg" alt=""></div>
-<!--        <div class="content_pic_6_text">
-       <li>京东预售</li>
-       <li>魔力按摩贴</li>
-       <li>你背后的女人</li>
-       </div> -->
-      <div class="content_pic_7_pic cleatfloat"><img src="picture/show_08.jpg" alt=""></div>
-<!--        <div class="content_pic_7_text cleatfloat">
-       <li>金融精选</li>
-       <li>天天免息</li>
-       <li>iPad轻松购</li>
-       </div> -->
-    </div>
-  </div>
-	<!-- main -->
-	<!-- 1楼代码 -->
-    <div class="main container cleatfloat">
-       <!-- main上部代码 -->
-       <div class="main_top">
-         <li class="main_icon"><i></i><span>1F</span></li>
-         <li class="main_project"><a href="">家用电器</a></li>
-         <li class="main_project"><a href="">特价商品</a></li>
-         <li class="main_project"><a href="">大家电</a></li>
-         <li class="main_project"><a href="">小家电</a></li>
-         <li class="main_project"><a href="">手机通讯</a></li>
-         <li class="main_project"><a href="">汽车五金</a></li>
-         <li class="main_link"><a href="">大家电配送> ></a></li>
-         <li class="main_link"><a href="">合约计划说明> ></a></li>
-       </div>
-       <div class="main_bottom container">
-          <div class="main_lf lf">
-                <div>
-                  <li><a href="">手机</a></li>
-                  <li><a href="">手机配件</a></li>
-                  <li><a href="">话费补贴</a></li>
-                  <li><a href="">生活电器</a></li>
-                  <li><a href="">厨房电器</a></li>
-                  <li><a href="">个护健康</a></li>
-                  <li><a href="">五金家装</a></li>
-                  <li><a href="">冰柜/冰吧</a></li>
-                </div>
-                <div>
-                  <li><a href="">空调</a></li>
-                  <li><a href="">平板电视</a></li>
-                  <li><a href="">冰箱</a></li>
-                  <li><a href="">洗衣机</a></li>
-                  <li><a href="">热水器</a></li>
-                  <li><a href="">烟机/烟灶</a></li>
-                  <li><a href="">家庭影院</a></li>
-                  <li><a href="">汽车用品</a></li>
-                </div>  
-                <div class="main_lf_pic"></div> 
-          </div>
-        <!--main 中部代码 -->
-          <div class="main_ct lf cleatfloat">
-            <div class="main_ct_icon_1 lf">
-               <div></div>
-               <li><a href="">32"智能电视限量预约121</a></li>
-               <li><a href="">2,48"智能电视预约2499</a></li>
-               <li><a href="" style="color: #ee4444;">提前预约就是任性</a></li>
-            </div>
-            <div class="main_ct_pic"></div>
+var main_title = '我喜欢你❤️';
+// console.log(main_title);
+if (main_title == '' || main_title == 'null') { //允许标题为空
+	document.title = '慢慢喜欢你';
+}
 
-            <div class="main_ct_icon_2">
-            <div></div>
-            <li><a href="">诺基亚新品首发</a></li>
-            <li><a href="" style="color: #ee4444;">3月1日10:30抢</a></li>
-            </div>
+var window_height = $(window).height();
+console.log('window_height ->' + window_height);
+var pure_words_content = theme_content['pure_words_content'];
+var str_cursorChar;
+var typed_bool;
+var interval_pw_height;
+var height_div_pw = $(".div_pure_words_height").height();
+function init_pure_words() {
+	$(".div_pure_words_height").html(pure_words_content + '22222'); //初始化复制内容，撑开文档高度            
+	// 初始化设置div的bg图片 初始化设置div的bg图片
+	if (typeof(theme_content['bg_style_pure_words']) != 'undefined' && theme_content['bg_style_pure_words'] == 'bg_opacity') {
+		if (typeof(theme_content['bg_img']) != 'undefined' && theme_content['bg_img'] != '') {
+			$(".div_pure_words_bg").css({
+				"background-image": "url(" + theme_content['bg_img'] + ")"
+			});
+		}
+	}
+	//以下是打字效果的js 
+	if (typeof(theme_content['cursor_char']) != 'undefined' && theme_content['cursor_char'] != '') {
+		switch (theme_content['cursor_char']) { //设置打字光标的样式
+		case 'cursor_heart':
+			str_cursorChar = '<um style="color: #F44336;">❤</um>';
+			break;
+		case 'cursor_sub':
+			str_cursorChar = '_';
+			break;
+		case 'cursor_music':
+			str_cursorChar = '♫';
+			break;
+		case 'cursor_star':
+			str_cursorChar = '★';
+			break;
+		case 'cursor_sun':
+			str_cursorChar = '☀';
+			break;
+		default:
+			str_cursorChar = '|';
+		}
+	} else { //处理全新作品，默认显示打字效果
+		str_cursorChar = '❤';
+	}
+	//判断用户有没有选择打字效果
+	if (typeof(theme_content['typed_bool']) != 'undefined' && theme_content['typed_bool'] != '') {
+		typed_bool = theme_content['typed_bool'] == 'typed_y' ? true : false;
+	} else {
+		typed_bool = false; //默认显示打字效果
+	}
+	display_pure_words();
+	$(".div_pure_words").fadeIn();
+	interval_pw_height = setInterval(function() {
+		console.log('div_pure_words_height -> ' + $('.div_pure_words_height').height());
+		var least_height_div_pw = $('.div_pure_words_height').height();
+		if (least_height_div_pw > height_div_pw) {
+			height_div_pw = least_height_div_pw;
+		} else {
+			clearInterval(interval_pw_height);
+			$(".div_pure_words_height").height(least_height_div_pw + 100);
+			if ($(".div_pure_words_height").height() < window_height) {
+				$(".div_pure_words_height").height(window_height); //不能小于窗口的高度
+				console.log('let us be high as window');
+			}
+		}
+	}, 100);
+}
 
-            <div class="main_ct_icon_3">
-              <div></div>
-              <li><a href="">大金经典爆款</a></li>
-              <li><a href="" style="color: #ee4444;">给你清新空气</a></li>
-            </div>
+function display_pure_words() {
+	if (typed_bool) {
+		var typed_pure_words = new Typed('#span_pw_typed', {
+			strings: [pure_words_content],
+			//输入内容, 支持html标签
+			typeSpeed: 120,
+			//打字速度
+			cursorChar: str_cursorChar,
+			//替换光标的样式
+			contentType: 'html',
+			//值为html时，将打印的文本标签直接解析html标签
+			onComplete: function(abc) {
+				// console.log(abc); 
+				console.log('finished typing words');
+				// console.log($('#span_pw_typed').height()-$(".div_pure_words_height").height());
+			},
+		});
+	} else {
+		//如果不需要打字效果就直接显示
+		$("#span_pw_typed").html(pure_words_content).fadeIn();
+	}
+	init_attachment();
+}
+var start_content = {
+	chase_title: "姜珊<br>我不会说话，看图<um style='color: #F44336;'>💕</um>",
+	chase_text: "承蒙你的出现，够我喜欢好多年，我希望，以后你能用我的名字拒绝所有人<um style='color: #F44336;'>💕</um>",
+	chase_benefit: ["你是我拔掉氧气罐都想吻的人", "你是我跑完8000米还想拥抱的人", "你是我自罚三杯都不肯开口的秘密", "你是我赴汤蹈火都不肯放下的执着", "你是我电量只剩1%也想回信息的人", "你是我穷极一生不想醒来的梦"],
+	bg_style: "bg_custom",
+	bg_img: "images/2.jpg",
+	img_bool: "img_true",
+	img_src: "images/1.jpg"
+}; //可能为null
+console.log(start_content);
+var start_id;
+$(function() {
+	//此事件为触发互动创意
+	start_id = 'onlyyou'; //可能为null
+	init_start(start_id);
+});
+function init_start(start_id) {
+	console.log('init_start ->' + start_id);
+	switch (start_id) {
+	case 'loveformat':
+		$('.div_loveformat').show();
+		init_loveformat();
+		break;
+	case 'hearttree':
+		$('#div_hearttree').show();
+		init_hearttree();
+		break;
+	case 'courage':
+		$('#div_courage').show();
+		init_courage();
+		break;
+	case 'birthdaycake':
+		$('#div_dbcake').show();
+		init_birthdaycake();
+		break;
+	case 'intersect':
+		$('#div_intersect').show();
+		init_intersect();
+		break;
+	case 'onlyyou':
+		$('#div_onlyyou').show();
+		init_onlyyou();
+		break;
+	default:
+		init_theme();
+	}
+}
+//开始动画主体部分
+function init_theme() {
+	console.log('init_theme');
+	$('#div_start_bg').fadeOut();
+	init_pure_words();
+}
+var attachment = 'null'; //可能为null
+var attached_content = {
+	"bool_save": false
+}; //可能为null
+console.log(attached_content);
 
-            <div class="main_ct_icon_4">
-            <div></div>
-            <li><a href="">iPhone 6 Plus 64G</a></li>
-            <li><a href="" style="color: #ee4444;">￥6699.00</a></li>                
-            </div>
-
-            <div class="main_ct_icon_5">
-              <div></div>
-              <li><a href="">科沃魔镜扫地机器人</a></li>
-              <li><a href="" style="color: #ee4444;">劲爆价！￥999</a></li>              
-            </div>
-
-            <div class="main_ct_icon_6">
-            <div></div>
-             <li><a href="">极致爆款！</a></li>
-             <li><a href="" style="color: #ee4444;">志高13片劲热电热油</a></li>
-            </div>
-            <div class="main_ct_icon_7">
-              <div></div>
-              <li><a href="">12.12爆款热卖</a></li>
-              <li><a href="" style="color: #ee4444;">提前抢！</a></li>
-            </div>
-          </div>
-     
-
-          <div class="main_rf lf">
-             <div class="main_rf_icon_01"></div>
-             <div  class="main_rf_icon_02"></div>
-             <div  class="main_rf_icon_03"></div>
-             <div  class="main_rf_icon_04"></div>
-             <div  class="main_rf_icon_05"></div>
-             <div  class="main_rf_icon_06"></div>
-             <div  class="main_rf_icon_07"></div>
-             <div  class="main_rf_icon_08"></div>
-             <div  class="main_rf_icon_09"></div>
-             <div  class="main_rf_icon_10"></div>
-             <div class="main_rf_pic_1"></div>
-          </div>
-      </div>
-    </div>
-
-    <!-- 第二楼 -->
-     <div class="main container">
-       <!-- 2f main上部代码 -->
-       <div class="main_top">
-         <li class="main_icon"><i></i><span>2F</span></li>
-         <li class="main_project"><a href="">电脑数码</a></li>
-         <li class="main_project"><a href="">特价商品</a></li>
-         <li class="main_project"><a href="">笔记本</a></li>
-         <li class="main_project"><a href="">数码影音</a></li>
-         <li class="main_project"><a href="">DIY攒机</a></li>
-         <li class="main_project"><a href="">外设办公</a></li>
-         <li class="main_link"><a href="">DIY装机大师> ></a></li>
-         <li class="main_link"><a href="">游戏社区> ></a></li>
-       </div>
-
-       <div class="main_bottom container">
-          <div class="main_2f_lf lf">
-                <div>
-                  <li><a href="">笔记本</a></li>
-                  <li><a href="">游戏本</a></li>
-                  <li><a href="">平板电脑</a></li>
-                  <li><a href="">打印机</a></li>
-                  <li><a href="">移动电源</a></li>
-                  <li><a href="">路由器</a></li>
-                  <li><a href="">显示器</a></li>
-                  <li><a href="">CPU</a></li>
-                </div>
-                <div>
-                  <li><a href="">数码相机</a></li>
-                  <li><a href="">单反相机</a></li>
-                  <li><a href="">台式电脑</a></li>
-                  <li><a href="">移动硬盘</a></li>
-                  <li><a href="">耳机/耳麦</a></li>
-                  <li><a href="">办公文仪</a></li>
-                  <li><a href="">鼠标</a></li>
-                  <li><a href="">显卡</a></li>
-                </div>  
-                <div></div> 
-          </div>
-        <!--2fmain 中部代码 -->
-          <div class="main_2f_ct lf cleatfloat">
-            <div class="main_2f_ct_icon_1 lf">
-               <div></div>
-               <li><a href="">12.12预热先来一把</a></li>
-               <li><a href="">性价比之王，超强配置</a></li>
-               <li><a href="" style="color: #ee4444;">￥6999</a></li>
-            </div>
-            <div class="main_2f_ct_pic"></div>
-
-            <div class="main_2f_ct_icon_2">
-            <div></div>
-            <li><a href="">投影机该换啦</a></li>
-            <li><a href="">师傅上门安装！一步到位</a></li>
-            <li><a href="" style="color: #ee4444;">2月5日10:30抢</a></li>
-            </div>
-
-            <div class="main_2f_ct_icon_3">
-              <div></div>
-              <li><a href="">ThinkPad I5超强配置</a></li>
-              <li><a href="">另有疯狂加价购</a></li>
-            </div>
-
-            <div class="main_2f_ct_icon_4">
-            <div></div>
-            <li><a href="">惠普(HP)HP15-d004笔记本</a></li>
-            <li><a href="">￥4699.00</a></li>             
-            </div>
-
-            <div class="main_2f_ct_icon_5">
-              <div></div>
-              <li><a href="">无极i3 4150/GTX750Ti</a></li>
-              <li><a href="">DIY组装机</a></li>
-              <li><a href="">￥3599.00</a></li>              
-            </div>
-
-            <div class="main_2f_ct_icon_6">
-            <div></div>
-             <li><a href="">返现100，截止12.12</a></li>
-             <li><a href="">微星及未来</a></li>
-            </div>
-            <div class="main_2f_ct_icon_7">
-              <div></div>
-              <li><a href="">水星超强信号套装</a></li>
-              <li><a href="">年底大放血！</a></li>
-            </div>
-          </div>
-     
-
-          <div class="main_rf lf">
-             <div class="main_2f_rf_icon_01"></div>
-             <div  class="main_2f_rf_icon_02"></div>
-             <div  class="main_2f_rf_icon_03"></div>
-             <div  class="main_2f_rf_icon_04"></div>
-             <div  class="main_2f_rf_icon_05"></div>
-             <div  class="main_2f_rf_icon_06"></div>
-             <div  class="main_2f_rf_icon_07"></div>
-             <div  class="main_2f_rf_icon_08"></div>
-             <div  class="main_2f_rf_icon_09"></div>
-             <div  class="main_2f_rf_icon_10"></div>
-             <div class="main_2f_rf_pic_1"></div>
-          </div>
-      </div>
-    </div>
-    <!-- 第三层 -->
-     <div class="main container">
-       <!-- main上部代码 -->
-       <div class="main_top">
-         <li class="main_icon"><i></i><span>3F</span></li>
-         <li class="main_project"><a href="">美容珠宝</a></li>
-         <li class="main_project"><a href="">特价商品</a></li>
-         <li class="main_project"><a href="">美容化妆</a></li>
-         <li class="main_project"><a href="">个人护理</a></li>
-         <li class="main_project"><a href="">黄金珠宝</a></li>
-         <li class="main_project"><a href="">珠宝首饰</a></li>
-         <li class="main_link"><a href="">上门送货> > </a></li>
-         <li class="main_link"><a href="">Vip活动> ></a></li>
-       </div>
-
-       <div class="main_3f_bottom container">
-          <div class="main_3f_lf lf">
-                <div>
-                  <li><a href="">面部护理</a></li>
-                  <li><a href="">彩妆香水</a></li>
-                  <li><a href="">洗发护肤</a></li>
-                  <li><a href="">身体护肤</a></li>
-                  <li><a href="">口腔护理</a></li>
-                  <li><a href="">女性护理</a></li>
-                  <li><a href="">美容养颜</a></li>
-                  <li><a href="">礼品</a></li>
-                </div>
-                <div>
-                  <li><a href="">瑞士名表</a></li>
-                  <li><a href="">国产名表</a></li>
-                  <li><a href="">时尚腕表</a></li>
-                  <li><a href="">钻石</a></li>
-                  <li><a href="">翡翠珍珠</a></li>
-                  <li><a href="">时尚饰品</a></li>
-                  <li><a href="">火机烟具</a></li>
-                  <li><a href="">奢侈品</a></li>
-                </div>  
-                <div></div> 
-          </div>
-        <!--main 中部代码 -->
-          <div class="main_3f_ct lf cleatfloat">
-            <div class="main_3f_ct_icon_1 lf">
-               <div></div>
-               <li><a href="">12.12 明觉 印度小叶</a></li>
-               <li><a href="">紫檀佛珠手串</a></li>
-               <li><a href="" style="color: #ee4444;">￥299.00</a></li>
-            </div>
-            <div class="main_3f_ct_pic"></div>
-
-            <div class="main_3f_ct_icon_2">
-            <div></div>
-            <li><a href="">腕表12.12</a></li>
-            <li><a href="" style="color: #ee4444;">打白条，享免息！</a></li>
-            </div>
-
-            <div class="main_3f_ct_icon_3">
-              <div></div>
-              <li><a href="">黄金项链 女黄金吊坠</a></li>
-              <li><a href="">另有疯狂加价购</a></li>
-            </div>
-
-            <div class="main_3f_ct_icon_4">
-            <div></div>
-            <li><a href="">欧莱雅透明质酸水润</a></li>
-            <li><a href="">惊喜不断</a></li>             
-            </div>
-
-            <div class="main_3f_ct_icon_5">
-              <div></div>
-              <li><a href="">12.12美立方时尚饰品</a></li>
-              <li><a href="">开运水晶项链</a></li>
-              <li><a href="">强力出击</a></li>              
-            </div>
-
-            <div class="main_3f_ct_icon_6">
-            <div></div>
-             <li><a href="">Swarovski 施华洛世奇</a></li>
-             <li><a href="">2014新款金色天鹅</a></li>
-            </div>
-            <div class="main_3f_ct_icon_7">
-              <div></div>
-              <li><a href="">星月菩提手串</a></li>
-              <li><a href="">12.12买即送10-99礼包</a></li>
-            </div>
-          </div>
-     
-
-          <div class="main_3f_rf lf">
-             <div class="main_3f_rf_icon_01"></div>
-             <div  class="main_3f_rf_icon_02"></div>
-             <div  class="main_3f_rf_icon_03"></div>
-             <div  class="main_3f_rf_icon_04"></div>
-             <div  class="main_3f_rf_icon_05"></div>
-             <div  class="main_3f_rf_icon_06"></div>
-             <div  class="main_3f_rf_icon_07"></div>
-             <div  class="main_3f_rf_icon_08"></div>
-             <div  class="main_3f_rf_icon_09"></div>
-             <div  class="main_3f_rf_icon_10"></div>
-             <div class="main_3f_rf_pic_1"></div>
-          </div>
-      </div>
-    </div>
-
-	<!-- footer -->	
-     <div class="footer container cleatfloat">
-        <div class="footer_top container lf">
-
-            <div class="footer_top_1">
-              <div class="footer_top_1_pic"><i></i></div>
-              <div class="footer_top_1_text">
-                 <li><a href="">购物指南</a></li>
-                 <li><a href="">购物介绍</a></li>
-                 <li><a href="">会员介绍</a></li>
-                 <li><a href="">团购/机票</a></li>
-                 <li><a href="">常见问题</a></li>
-                 <li><a href="">大家电</a></li>
-                 <li><a href="">联系客服</a></li>
-              </div>
-            </div>
-
-            <div class="footer_top_2">
-              <div class="footer_top_2_pic"><i></i></div>
-              <div class="footer_top_2_text">
-                 <li><a href="">配送方式</a></li>
-                 <li><a href="">上门自提</a></li>
-                 <li><a href="">211限时达</a></li>
-                 <li><a href="">配送服务查询</a></li>
-                 <li><a href="">配送费收取标准</a></li>
-                 <li><a href="">海外配送</a></li>
-              </div>
-            </div>            
-
-            <div class="footer_top_3">
-              <div class="footer_top_3_pic"><i></i></div>
-              <div class="footer_top_3_text">
-                 <li><a href="">支付方式</a></li>
-                 <li><a href="">货到付款</a></li>
-                 <li><a href="">在线支付</a></li>
-                 <li><a href="">分期付款</a></li>
-                 <li><a href="">邮局汇款</a></li>
-                 <li><a href="">公司转账</a></li>
-              </div>
-            </div>
-
-            <div class="footer_top_4">
-              <div class="footer_top_4_pic"><i></i></div>
-              <div class="footer_top_4_text">
-                 <li><a href="">售后服务</a></li>
-                 <li><a href="">售后政策</a></li>
-                 <li><a href="">价格保护</a></li>
-                 <li><a href="">退款说明</a></li>
-                 <li><a href="">返修/退换货</a></li>
-                 <li><a href="">取消订单</a></li>
-              </div>
-            </div>
-
-            <div class="footer_top_5">
-              <div class="footer_top_5_pic"><i></i></div>
-              <div class="footer_top_5_text">
-                 <li><a href="">特色服务</a></li>
-                 <li><a href="">夺宝岛</a></li>
-                 <li><a href="">DIV装机</a></li>
-                 <li><a href="">延保服务</a></li>
-                 <li><a href="">京东E卡</a></li>
-                 <li><a href="">节能补贴</a></li>
-                 <li><a href="">京东通讯</a></li>
-              </div>
-            </div>            
-          </div>
-        <div class="footer_mid">
-        <li class="footer_mid_li">
-           <a href="">关于我们</a>
-           <span>|</span>
-           <a href="">联系我们</a>
-           <span>|</span>
-           <a href="">人才招聘</a>
-           <span>|</span>
-           <a href="">商家入驻</a>
-           <span>|</span>
-           <a href="">广告服务</a>
-           <span>|</span>
-           <a href="">手机京东</a>
-           <span>|</span>
-           <a href="">友情链接</a>
-           <span>|</span>
-           <a href="">销售联盟</a>
-           <span>|</span>
-           <a href="">关于我们</a>
-           <span>|</span>
-           <a href="">京东社区</a>
-           <span>|</span>
-           <a href="">京东公益</a> 
-          </li>         
-        </div>
-
-        <div class="footer_bottom">
-
-          <li class="footer_bottom_1">
-            <a href="">北京市公安局朝阳分局备案号110105014669</a>
-            <span>|</span>
-            <a href="">京ICP证070359号</a>
-            <span>|</span>
-            <a href="">互联网药品信息服务资格证编号(京)-非经营性-2011-0034</a>
-          </li>
-
-          <li class="footer_bottom_1">
-            <a href="">音像制品经营许可证苏宿005号</a>
-            <span>|</span>
-            <a href="">出版社经营许可证编号新出发(苏)批字第N-012号</a>
-            <span>|</span>
-            <a href="">互联网出版许可证编号新出网证(京)字150号</a>
-          </li>
-
-          <li class="footer_bottom_1">
-            <a href="">网络文化经营许可证京网文[2011]0168-061号</a>
-            <a href="">Copyright &copy; 2004-2014 京东JD.com版权所有</a>
-          </li>
-
-          <li class="footer_bottom_1">
-            <a href="">京东旗下网站：English Site</a>
-            <a href="">拍拍网</a>
-            <a href="">网银在线</a>
-          </li>
-        </div>
-
-        <div class="footer_pic">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-     </div>
+function init_attachment() { //开始attachment
+	console.log('init_attachment ->' + attachment);
+	switch (attachment) {
+	case 'timer':
+		init_at_timer();
+		break;
+	default:
+		return;
+	}
+}
+</script>
+<!-- JQuery -->
+<script src="js/typed.min.js"></script>
+<script src="js/start_onlyyou.js"></script>
+<script src="js/jweixin-1.2.0.js"></script>
+<script src='js/theme_common.js'></script>
 </body>
-</html>	
+</html>
